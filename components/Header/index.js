@@ -6,7 +6,7 @@ import Button from "../Button";
 // Local Data
 import data from "../../data/portfolio.json";
 
-const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
+const Header = ({ handleWorkScroll, handleAboutScroll, handleContactScroll, isBlog }) => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -25,27 +25,15 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             <div className="flex items-center justify-between p-2 laptop:p-0">
               <h1
                 onClick={() => router.push("/")}
-                className="font-medium p-2 laptop:p-0 link"
+                className="font-medium p-2 laptop:p-0 link flex items-center"
               >
                 <img src="/images/Expand AI.png" alt="Expand AI Logo" style={{ height: "80px", width: "64px" }} />
+                <span className="ml-2 text-2xl font-bold">
+                  AI<span className="text-purple-500">Expand</span>
+                </span>
               </h1>
 
               <div className="flex items-center">
-                {data.darkMode && (
-                  <Button
-                    onClick={() =>
-                      setTheme(theme === "dark" ? "light" : "dark")
-                    }
-                  >
-                    <img
-                      className="h-6"
-                      src={`/images/${
-                        theme === "dark" ? "moon.svg" : "sun.svg"
-                      }`}
-                    ></img>
-                  </Button>
-                )}
-
                 <Popover.Button>
                   <img
                     className="h-5"
@@ -70,11 +58,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               {!isBlog ? (
                 <div className="grid grid-cols-1">
                   <Button onClick={handleAboutScroll}>About</Button>
-                  <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
-                  >
-                    Contact
-                  </Button>
+                  <Button onClick={handleContactScroll}>Contact</Button>
                 </div>
               ) : (
                 <div className="grid grid-cols-1">
@@ -93,45 +77,26 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
         )}
       </Popover>
       <div
-        className={`mt-10 hidden flex-row items-center justify-between ${
-          theme === "light" && "bg-white"
-        } dark:text-white z-10 tablet:flex`}
+        className={`mt-10 hidden flex-row items-center justify-between dark:text-white z-10 tablet:flex`}
       >
         <h1
           onClick={() => router.push("/")}
-          className="font-medium cursor-pointer mob:p-2 laptop:p-0"
+          className="font-medium cursor-pointer mob:p-2 laptop:p-0 flex items-center"
         >
           <img src="/images/Expand AI.png" alt="Expand AI Logo" style={{ height: "64px", width: "64px" }} />
+          <span className="ml-2 text-2xl font-bold">
+            AI<span className="text-purple-500">Expand</span>
+          </span>
         </h1>
         {!isBlog ? (
           <div className="flex">
             <Button onClick={handleAboutScroll}>About</Button>
-            <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>Contact</Button>
-            {mounted && theme && data.darkMode && (
-              <Button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              >
-                <img
-                  className="h-6"
-                  src={`/images/${theme === "dark" ? "moon.svg" : "sun.svg"}`}
-                ></img>
-              </Button>
-            )}
+            <Button onClick={handleContactScroll}>Contact</Button>
           </div>
         ) : (
           <div className="flex">
             <Button onClick={() => router.push("/")}>Home</Button>
             <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>Contact</Button>
-            {mounted && theme && data.darkMode && (
-              <Button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              >
-                <img
-                  className="h-6"
-                  src={`/images/${theme === "dark" ? "moon.svg" : "sun.svg"}`}
-                ></img>
-              </Button>
-            )}
           </div>
         )}
       </div>
