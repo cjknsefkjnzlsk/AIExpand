@@ -45,6 +45,10 @@ export default function Home() {
   const [demoBusinessType, setDemoBusinessType] = useState("");
   const [demoError, setDemoError] = useState("");
   const [demoSuccess, setDemoSuccess] = useState("");
+  const [mainContainerVisible, setMainContainerVisible] = useState(false);
+  const [leftTextVisible, setLeftTextVisible] = useState(false);
+  const [terminalVisible, setTerminalVisible] = useState(false);
+  const [agentBoxVisible, setAgentBoxVisible] = useState([false, false, false, false]);
 
   useEffect(() => {
     const handleObserver = (ref, setVisible) => {
@@ -66,6 +70,16 @@ export default function Home() {
     handleObserver(infoBoxesRef, setInfoBoxesVisible);
     // Add observer for demo section
     handleObserver(demoSectionRef, setDemoSectionVisible);
+    setTimeout(() => setMainContainerVisible(true), 100); // slight delay for effect
+    // Fade in left text/buttons after main container
+    setTimeout(() => setLeftTextVisible(true), 700); // adjust delay as needed
+    // Fade in terminal after left text/buttons
+    setTimeout(() => setTerminalVisible(true), 1300);
+    // Fade in agent boxes one by one after terminal
+    setTimeout(() => setAgentBoxVisible(v => [true, false, false, false]), 1800);
+    setTimeout(() => setAgentBoxVisible(v => [true, true, false, false]), 2100);
+    setTimeout(() => setAgentBoxVisible(v => [true, true, true, false]), 2400);
+    setTimeout(() => setAgentBoxVisible(v => [true, true, true, true]), 2700);
   }, []);
 
   // Handling Scroll
@@ -217,7 +231,7 @@ export default function Home() {
       <div className="gradient-circle"></div>
       <div className="gradient-circle-bottom"></div>
 
-      <div className="container mx-auto mb-10">
+      <div className={`container mx-auto mb-10${mainContainerVisible ? ' animate-fade-in-down opacity-100' : ' opacity-0'}` }>
         <Header
           handleWorkScroll={handleWorkScroll}
           handleAboutScroll={handleAboutScroll}
@@ -226,7 +240,7 @@ export default function Home() {
         {/* New Hero Section Start */}
         <div className="flex flex-col laptop:flex-row bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-lg mt-10 p-8 gap-8">
           {/* Left Column */}
-          <div className="flex-1 flex flex-col justify-center pl-12">
+          <div className={`flex-1 flex flex-col justify-center pl-12${leftTextVisible ? ' animate-fade-in-down opacity-100' : ' opacity-0'}` }>
             <h2 className="text-5xl font-extrabold mb-4">
               <span className="text-white">AI</span><span className="text-purple-400">Expand</span>
             </h2>
@@ -242,7 +256,7 @@ export default function Home() {
             </div>
           </div>
           {/* Right Column */}
-          <div className="flex-1 bg-white/5 p-10 relative flex flex-col justify-center rounded-xl">
+          <div className={`flex-1 bg-white/5 p-10 relative flex flex-col justify-center rounded-xl${terminalVisible ? ' animate-fade-in-down opacity-100' : ' opacity-0'}`}>
             <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
               <span className="text-white">How can we help you </span><span className="text-purple-400">Expand</span><span className="text-white">?</span>
             </h2>
@@ -384,16 +398,16 @@ export default function Home() {
             <div className="mt-8">
               <h3 className="text-lg font-bold text-white mb-4">What can <span className="text-purple-400">our agents</span> do?</h3>
               <ul className="grid grid-cols-2 gap-3">
-                <li className="bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base">
+                <li className={`bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base transition-opacity duration-700${agentBoxVisible[0] ? ' animate-fade-in-down opacity-100' : ' opacity-0'}`}>
                   <span className="mr-3 text-purple-400">•</span> Answer FAQs
                 </li>
-                <li className="bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base">
+                <li className={`bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base transition-opacity duration-700${agentBoxVisible[1] ? ' animate-fade-in-down opacity-100' : ' opacity-0'}`}>
                   <span className="mr-3 text-purple-400">•</span> Get new leads
                 </li>
-                <li className="bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base">
+                <li className={`bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base transition-opacity duration-700${agentBoxVisible[2] ? ' animate-fade-in-down opacity-100' : ' opacity-0'}`}>
                   <span className="mr-3 text-purple-400">•</span> Respond to DMs
                 </li>
-                <li className="bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base">
+                <li className={`bg-white/90 text-gray-900 rounded-xl px-6 py-4 shadow flex items-center font-medium text-base transition-opacity duration-700${agentBoxVisible[3] ? ' animate-fade-in-down opacity-100' : ' opacity-0'}`}>
                   <span className="mr-3 text-purple-400">•</span> Drive more profit
                 </li>
               </ul>
@@ -483,7 +497,7 @@ export default function Home() {
         {/* Demo Section End */}
         <div
           ref={contactSectionRef}
-          className={`mt-5 laptop:mt-40 p-2 laptop:p-0 min-h-[200px] transition-opacity duration-700 ${contactVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+          className={`mt-5 laptop:mt-40 p-2 laptop:p-0 min-h-[200px] transition-opacity duration-700${contactVisible ? ' opacity-100 animate-fade-in-down' : ' opacity-0 pointer-events-none'}`}
         >
           <div className="text-center">
             <Footer onContactClick={() => setShowModal(true)} />
