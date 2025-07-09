@@ -32,7 +32,6 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleContactScroll, isBl
                   AI<span className="text-purple-500">Expand</span>
                 </span>
               </h1>
-
               <div className="flex items-center">
                 <Popover.Button>
                   <img

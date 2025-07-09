@@ -394,7 +394,6 @@ export default function Home() {
                 <span>Start</span>
               </button>
             </div>
-            {/* Examples Section */}
             <div className="mt-8">
               <h3 className="text-lg font-bold text-white mb-4">What can <span className="text-purple-400">our agents</span> do?</h3>
               <ul className="grid grid-cols-2 gap-3">
