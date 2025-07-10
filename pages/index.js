@@ -417,7 +417,7 @@ export default function Home() {
         <Socials className="mt-2 laptop:mt-5" />
         
         {/* More Information Section */}
-        <div ref={moreInfoSectionRef} className={`mt-60 mb-2 text-center${moreInfoVisible ? ' animate-fade-in-down' : ''}` }>
+        <div ref={moreInfoSectionRef} className={`mt-[35vh] mb-2 text-center${moreInfoVisible ? ' animate-fade-in-down' : ''}` }>
           {moreInfoVisible && (
             <h2 className="font-bold text-4xl laptop:text-6xl">
               More <span className="text-purple-400">Information</span>
